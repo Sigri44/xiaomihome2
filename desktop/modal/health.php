@@ -18,11 +18,11 @@
 if (!isConnect('admin')) {
 	throw new Exception('401 - Accès non autorisé');
 }
-$plugin = plugin::byId('xiaomihome');
-$eqLogics = xiaomihome::byType('xiaomihome');
+$plugin = plugin::byId('xiaomihome2');
+$eqLogics = xiaomihome2::byType('xiaomihome2');
 ?>
 
-<table class="table table-condensed tablesorter" id="table_healthxiaomihome">
+<table class="table table-condensed tablesorter" id="table_healthxiaomihome2">
 	<thead>
 		<tr>
 			<th>{{Image}}</th>
@@ -43,7 +43,7 @@ $eqLogics = xiaomihome::byType('xiaomihome');
 	 <?php
 foreach ($eqLogics as $eqLogic) {
 	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png')) {
-		$image = '<img src="plugins/xiaomihome/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '" height="55" width="55" />';
+		$image = '<img src="plugins/xiaomihome2/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '" height="55" width="55" />';
 	} else {
 		$image = '<img src="' . $plugin->getPathImgIcon() . '" height="55" width="55" />';
 	}
@@ -121,7 +121,7 @@ $('.exclusion').on('click', function () {
         callback: function () {
 			$.ajax({
         type: "POST", 
-        url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php", 
+        url: "plugins/xiaomihome2/core/ajax/xiaomihome.ajax.php", 
         data: {
             action: "ExclusionGateway",
             id: id,
