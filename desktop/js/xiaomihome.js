@@ -139,16 +139,16 @@ $( "#sid" ).change(function(){
   }
 });
 
-$('#bt_healthxiaomihome').on('click', function () {
-  $('#md_modal').dialog({title: "{{Santé xiaomihome}}"});
-  $('#md_modal').load('index.php?v=d&plugin=xiaomihome&modal=health').dialog('open');
+$('#bt_healthxiaomihome2').on('click', function () {
+  $('#md_modal').dialog({title: "{{Santé xiaomihome2}}"});
+  $('#md_modal').load('index.php?v=d&plugin=xiaomihome2&modal=health').dialog('open');
 });
 
 $('.discover').on('click', function () {
 	$('#div_alert').showAlert({message: '{{Détection en cours}}', level: 'warning'});
 	$.ajax({
                 type: "POST", // méthode de transmission des données au fichier php
-                url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
+                url: "plugins/xiaomihome2/core/ajax/xiaomihome.ajax.php",
                 data: {
                     action: "discover",
                     mode: $(this).attr('data-action'),
@@ -175,12 +175,12 @@ if($('.eqLogicAttr[data-l1key=id]').value() != ''){
 			 icon = $('.eqLogicAttr[data-l1key=configuration][data-l2key=model]').value();
 		 }
 		 if(icon != '' && icon != null){
-             $('#img_device').attr("src", 'plugins/xiaomihome/core/config/devices/'+icon+'/'+icon+'.png');
+             $('#img_device').attr("src", 'plugins/xiaomihome2/core/config/devices/'+icon+'/'+icon+'.png');
          } else {
-			 $('#img_device').attr("src", 'plugins/xiaomihome/doc/images/xiaomihome_icon.png');
+			 $('#img_device').attr("src", 'plugins/xiaomihome2/doc/images/xiaomihome_icon.png');
 		 }
  }else{
-    $('#img_device').attr("src",'plugins/xiaomihome/doc/images/xiaomihome_icon.png');
+    $('#img_device').attr("src",'plugins/xiaomihome2/doc/images/xiaomihome_icon.png');
 }
 }
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=applyDevice]').on('change', function () {
@@ -193,7 +193,7 @@ if($('.eqLogicAttr[data-l1key=id]').value() != ''){
   $('.eqLogicAttr[data-l1key=configuration][data-l2key=applyDevice]').value($(this).value());
   }
 });
-$('body').on('xiaomihome::includeDevice', function (_event,_options) {
+$('body').on('xiaomihome2::includeDevice', function (_event,_options) {
     if (modifyWithoutSave) {
         $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être découvert. Veuillez réactualiser la page.}}', level: 'warning'});
     } else {
@@ -232,7 +232,7 @@ $('#bt_autoDetectModule').on('click', function () {
                             if (result) {
                                 $.ajax({
                                     type: "POST",
-                                    url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
+                                    url: "plugins/xiaomihome2/core/ajax/xiaomihome.ajax.php",
                                     data: {
                                         action: "autoDetectModule",
                                         id: $('.eqLogicAttr[data-l1key=id]').value(),
@@ -256,7 +256,7 @@ $('#bt_autoDetectModule').on('click', function () {
 					} else {
 						$.ajax({
                                     type: "POST",
-                                    url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
+                                    url: "plugins/xiaomihome2/core/ajax/xiaomihome.ajax.php",
                                     data: {
                                         action: "autoDetectModule",
                                         id: $('.eqLogicAttr[data-l1key=id]').value(),
@@ -288,7 +288,7 @@ $('#btn_sync').on('click', function () {
             $('#div_alert').showAlert({message: '{{Recherche en cours...}}', level: 'warning'});
             $.ajax({
                 type: "POST", // méthode de transmission des données au fichier php
-                url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
+                url: "plugins/xiaomihome2/core/ajax/xiaomihome.ajax.php",
                 data: {
                     action: "sync",
                     id: $('.eqLogicAttr[data-l1key=id]').value(),
@@ -435,11 +435,11 @@ if (init(_cmd.type) == 'action') {
   });
 
 }
-$('body').on('xiaomihome::found', function (_event,_options) {
-    window.location.href = 'index.php?v=d&p=xiaomihome&m=xiaomihome&id=' + _options+'&nocache=' + (new Date()).getTime();
+$('body').on('xiaomihome2::found', function (_event,_options) {
+    window.location.href = 'index.php?v=d&p=xiaomihome2&m=xiaomihome2&id=' + _options+'&nocache=' + (new Date()).getTime();
 });
 
-$('body').on('xiaomihome::notfound', function (_event,_options) {
+$('body').on('xiaomihome2::notfound', function (_event,_options) {
     $('#div_alert').showAlert({message: '{{Equipement non trouvé. Veuillez vérifier l\'IP et relancer.}}', level: 'danger'});
 });
 }
@@ -468,7 +468,7 @@ $('.inclusion').on('click', function () {
         callback: function () {
 			$.ajax({
         type: "POST",
-        url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
+        url: "plugins/xiaomihome2/core/ajax/xiaomihome.ajax.php",
         data: {
             action: "InclusionGateway",
             id: id,
