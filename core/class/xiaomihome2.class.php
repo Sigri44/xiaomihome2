@@ -211,7 +211,7 @@ class xiaomihome2 extends eqLogic {
       $i++;
     }
     if ($i >= 30) {
-      log::add('xiaomihome2', 'error', 'Impossible de lancer le démon xiaomihome2d. Vérifiez le log.', 'unableStartDeamon');
+      log::add('xiaomihome2', 'error', 'Impossible de lancer le démon xiaomihomed. Vérifiez le log.', 'unableStartDeamon');
       return false;
     }
     message::removeAll('xiaomihome2', 'unableStartDeamon');
