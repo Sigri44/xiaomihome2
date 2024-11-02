@@ -195,7 +195,7 @@ class xiaomihome2 extends eqLogic {
     $cmd = '/usr/bin/python3 ' . $xiaomihome2_path . '/xiaomihomed.py';
     $cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel('xiaomihome2'));
     $cmd .= ' --socketport ' . config::byKey('socketport', 'xiaomihome2');
-    $cmd .= ' --callback ' . $url . '/plugins/xiaomihome2/core/php/jeexiaomihome.php';
+    $cmd .= ' --callback ' . $url . '/plugins/xiaomihome2/core/php/jeeXiaomiHome.php';
     $cmd .= ' --apikey ' . jeedom::getApiKey('xiaomihome2');
     $cmd .= ' --cycle ' . config::byKey('cycle', 'xiaomihome2');
     $cmd .= ' --pid ' . jeedom::getTmpFolder('xiaomihome2') . '/deamon.pid';
