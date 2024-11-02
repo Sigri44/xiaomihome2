@@ -360,7 +360,7 @@ if (class_exists('blea')){
               </div>
 
               <center>
-                <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"  onerror="this.src='plugins/xiaomihome2/plugin_info/xiaomihome_icon.png'"/>
+                <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"  onerror="this.src='plugins/xiaomihome2/plugin_info/xiaomihome2_icon.png'"/>
               </center>
 			  <br/>
             </fieldset>
