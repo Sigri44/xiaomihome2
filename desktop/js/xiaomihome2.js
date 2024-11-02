@@ -177,10 +177,10 @@ if($('.eqLogicAttr[data-l1key=id]').value() != ''){
 		 if(icon != '' && icon != null){
              $('#img_device').attr("src", 'plugins/xiaomihome2/core/config/devices/'+icon+'/'+icon+'.png');
          } else {
-			 $('#img_device').attr("src", 'plugins/xiaomihome2/doc/images/xiaomihome_icon.png');
+			 $('#img_device').attr("src", 'plugins/xiaomihome2/plugin_info/xiaomihome2_icon.png');
 		 }
  }else{
-    $('#img_device').attr("src",'plugins/xiaomihome2/doc/images/xiaomihome_icon.png');
+    $('#img_device').attr("src",'plugins/xiaomihome2/plugin_info/xiaomihome2_icon.png');
 }
 }
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=applyDevice]').on('change', function () {
