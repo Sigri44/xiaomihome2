@@ -18,7 +18,7 @@
 
 require_once dirname(__FILE__) . "/../../../../core/php/core.inc.php";
 
-if (!jeedom::apiAccess(init('apikey'), 'xiaomihome')) {
+if (!jeedom::apiAccess(init('apikey'), 'xiaomihome2')) {
 	echo __('Vous n\'êtes pas autorisé à effectuer cette action', __FILE__);
 	die();
 }
@@ -29,7 +29,7 @@ if (init('test') != '') {
 }
 $result = json_decode(file_get_contents("php://input"), true);
 if (!is_array($result)) {
-	log::add('xiaomihome', 'debug', 'Format Invalide');
+	log::add('xiaomihome2', 'debug', 'Format Invalide');
 	die();
 }
 
@@ -48,11 +48,11 @@ if (isset($result['devices'])) {
 			if ($datas['model'] == 'gateway') {
 				$logical_id = $datas['source'];
 			}
-			$xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-			if (!is_object($xiaomihome)) {
+			$xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+			if (!is_object($xiaomihome2)) {
 				if ($datas['model'] == 'gateway') {
 					//test si gateway qui a changé d'ip
-					foreach (eqLogic::byType('xiaomihome') as $gateway) {
+					foreach (eqLogic::byType('xiaomihome2') as $gateway) {
 						if ($gateway->getConfiguration('sid') == $datas['sid']) {
 							$gateway->setConfiguration('gateway',$datas['source']);
 							$gateway->setLogicalId($datas['source']);
@@ -61,25 +61,25 @@ if (isset($result['devices'])) {
 						}
 					}
 				}
-				$xiaomihome= xiaomihome::createFromDef($datas,$key);
-				if (!is_object($xiaomihome)) {
-					log::add('xiaomihome', 'debug', __('Aucun équipement trouvé pour : ', __FILE__) . secureXSS($datas['sid']));
+				$xiaomihome2= xiaomihome2::createFromDef($datas,$key);
+				if (!is_object($xiaomihome2)) {
+					log::add('xiaomihome2', 'debug', __('Aucun équipement trouvé pour : ', __FILE__) . secureXSS($datas['sid']));
 					continue;
 				}
 				sleep(2);
 				event::add('jeedom::alert', array(
 					'level' => 'warning',
-					'page' => 'xiaomihome',
+					'page' => 'xiaomihome2',
 					'message' => '',
 				));
-				event::add('xiaomihome::includeDevice', $xiaomihome->getId());
+				event::add('xiaomihome2::includeDevice', $xiaomihome2->getId());
 			}
-			if (!$xiaomihome->getIsEnable()) {
+			if (!$xiaomihome2->getIsEnable()) {
 				continue;
 			}
-			if ($xiaomihome->getConfiguration('gateway') != $datas['source'] && $datas['model'] != 'gateway') {
-				$xiaomihome->setConfiguration('gateway',$datas['source']);
-				$xiaomihome->save();
+			if ($xiaomihome2->getConfiguration('gateway') != $datas['source'] && $datas['model'] != 'gateway') {
+				$xiaomihome2->setConfiguration('gateway',$datas['source']);
+				$xiaomihome2->save();
 			}
 			if ($datas['sid'] !== null && $datas['model'] !== null) {
 				if (isset($datas['data'])) {
@@ -89,14 +89,14 @@ if (isset($result['devices'])) {
 							continue;
 						}
 						if ($datas['model'] == 'gateway'){
-							xiaomihome::receiveAquaraData($datas['source'], $datas['model'], $key, $value);
+							xiaomihome2::receiveAquaraData($datas['source'], $datas['model'], $key, $value);
 						} else {
-							xiaomihome::receiveAquaraData($datas['sid'], $datas['model'], $key, $value);
+							xiaomihome2::receiveAquaraData($datas['sid'], $datas['model'], $key, $value);
 						}
 					}
 				}
-				$xiaomihome->setStatus('lastCommunication',date('Y-m-d H:i:s'));
-				$xiaomihome->save();
+				$xiaomihome2->setStatus('lastCommunication',date('Y-m-d H:i:s'));
+				$xiaomihome2->save();
 			}
 		}
 		elseif ($key == 'yeelight'){
@@ -104,9 +104,9 @@ if (isset($result['devices'])) {
 				continue;
 			}
 			$logical_id = $datas['ip'];
-			$xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-			if (!is_object($xiaomihome)) {
-				foreach (eqLogic::byType('xiaomihome') as $yeelight) {
+			$xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+			if (!is_object($xiaomihome2)) {
+				foreach (eqLogic::byType('xiaomihome2') as $yeelight) {
 					if ($yeelight->getConfiguration('gateway') == $datas['ip']) {
 						$yeelight->setLogicalId($datas['ip']);
 						$yeelight->save();
@@ -116,70 +116,70 @@ if (isset($result['devices'])) {
 				if (!isset($datas['capabilities']['model'])) {
 					continue;
 				}
-				$xiaomihome= xiaomihome::createFromDef($datas,$key);
-				if (!is_object($xiaomihome)) {
-					log::add('xiaomihome', 'debug', __('Aucun équipement trouvé pour : ', __FILE__) . secureXSS($datas['capabilities']['id']));
+				$xiaomihome2= xiaomihome2::createFromDef($datas,$key);
+				if (!is_object($xiaomihome2)) {
+					log::add('xiaomihome2', 'debug', __('Aucun équipement trouvé pour : ', __FILE__) . secureXSS($datas['capabilities']['id']));
 					continue;
 				}
 				sleep(2);
 				event::add('jeedom::alert', array(
 					'level' => 'warning',
-					'page' => 'xiaomihome',
+					'page' => 'xiaomihome2',
 					'message' => '',
 				));
-				event::add('xiaomihome::includeDevice', $xiaomihome->getId());
+				event::add('xiaomihome2::includeDevice', $xiaomihome2->getId());
 			}
-			if (!$xiaomihome->getIsEnable()) {
+			if (!$xiaomihome2->getIsEnable()) {
 				continue;
 			}
 			if (isset($datas['capabilities'])) {
 				$data = $datas['capabilities'];
 				$power = ($data['power'] == 'off')? 0:1;
-				$xiaomihome->checkAndUpdateCmd('status', $power);
-				$xiaomihome->checkAndUpdateCmd('brightness', $data['bright']);
-				if ($xiaomihome->getConfiguration('model') != 'mono' && $xiaomihome->getConfiguration('model') != 'ceiling') {
-					$xiaomihome->checkAndUpdateCmd('color_mode', $data['color_mode']);
-					$xiaomihome->checkAndUpdateCmd('rgb', '#' . str_pad(dechex($data['rgb']), 6, "0", STR_PAD_LEFT));
-					$xiaomihome->checkAndUpdateCmd('hsv', $data['hue']);
-					$xiaomihome->checkAndUpdateCmd('saturation', $data['sat']);
+				$xiaomihome2->checkAndUpdateCmd('status', $power);
+				$xiaomihome2->checkAndUpdateCmd('brightness', $data['bright']);
+				if ($xiaomihome2->getConfiguration('model') != 'mono' && $xiaomihome2->getConfiguration('model') != 'ceiling') {
+					$xiaomihome2->checkAndUpdateCmd('color_mode', $data['color_mode']);
+					$xiaomihome2->checkAndUpdateCmd('rgb', '#' . str_pad(dechex($data['rgb']), 6, "0", STR_PAD_LEFT));
+					$xiaomihome2->checkAndUpdateCmd('hsv', $data['hue']);
+					$xiaomihome2->checkAndUpdateCmd('saturation', $data['sat']);
 				}
-				if ($xiaomihome->getConfiguration('model') != 'mono') {
-					$xiaomihome->checkAndUpdateCmd('temperature', $data['ct']);
+				if ($xiaomihome2->getConfiguration('model') != 'mono') {
+					$xiaomihome2->checkAndUpdateCmd('temperature', $data['ct']);
 				}
-				if ($xiaomihome->getConfiguration('model') == 'ceiling4' || $xiaomihome->getConfiguration('model') == 'ceiling10') {
+				if ($xiaomihome2->getConfiguration('model') == 'ceiling4' || $xiaomihome2->getConfiguration('model') == 'ceiling10') {
 					$bgpower = ($data['bg_power'] == 'off')? 0:1;
-					$xiaomihome->checkAndUpdateCmd('bg_status', $bgpower);
-					$xiaomihome->checkAndUpdateCmd('bg_bright', $data['bg_bright']);
-					$xiaomihome->checkAndUpdateCmd('bg_rgb', $data['bg_rgb']);
+					$xiaomihome2->checkAndUpdateCmd('bg_status', $bgpower);
+					$xiaomihome2->checkAndUpdateCmd('bg_bright', $data['bg_bright']);
+					$xiaomihome2->checkAndUpdateCmd('bg_rgb', $data['bg_rgb']);
 				}
-				$xiaomihome->setConfiguration('ipwifi', $datas['ip']);
-				$xiaomihome->setConfiguration('gateway', $datas['ip']);
-				$xiaomihome->setStatus('lastCommunication',date('Y-m-d H:i:s'));
-				$xiaomihome->save();
+				$xiaomihome2->setConfiguration('ipwifi', $datas['ip']);
+				$xiaomihome2->setConfiguration('gateway', $datas['ip']);
+				$xiaomihome2->setStatus('lastCommunication',date('Y-m-d H:i:s'));
+				$xiaomihome2->save();
 			}
 		}
 		elseif ($key == 'wifi'){
 			if (isset($datas['notfound'])){
 				$logical_id = $datas['ip'];
-				$xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-				event::add('xiaomihome::notfound', $xiaomihome->getId());
+				$xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+				event::add('xiaomihome2::notfound', $xiaomihome2->getId());
 				continue;
 			}
 			if (isset($datas['found'])){
 				$logical_id = $datas['ip'];
-				$xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-				$xiaomihome->setConfiguration('gateway',$datas['ip']);
-				$xiaomihome->setConfiguration('sid',$datas['serial']);
-				$xiaomihome->setConfiguration('short_id',$datas['devtype']);
-				$xiaomihome->setStatus('lastCommunication',date('Y-m-d H:i:s'));
-				$xiaomihome->setIsEnable(1);
-				$xiaomihome->setIsVisible(1);
+				$xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+				$xiaomihome2->setConfiguration('gateway',$datas['ip']);
+				$xiaomihome2->setConfiguration('sid',$datas['serial']);
+				$xiaomihome2->setConfiguration('short_id',$datas['devtype']);
+				$xiaomihome2->setStatus('lastCommunication',date('Y-m-d H:i:s'));
+				$xiaomihome2->setIsEnable(1);
+				$xiaomihome2->setIsVisible(1);
 				if (!in_array($datas['model'], array('vacuum','philipsceiling'))){
-					$xiaomihome->setConfiguration('password',$datas['token']);
+					$xiaomihome2->setConfiguration('password',$datas['token']);
 				}
-				$xiaomihome->save();
-				event::add('xiaomihome::found', $xiaomihome->getId());
-				$refreshcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),'refresh');
+				$xiaomihome2->save();
+				event::add('xiaomihome2::found', $xiaomihome2->getId());
+				$refreshcmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($xiaomihome2->getId(),'refresh');
 				$refreshcmd->execCmd();
 				continue;
 			}
@@ -187,15 +187,15 @@ if (isset($result['devices'])) {
 				continue;
 			}
 			$logical_id = $datas['ip'];
-			$xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-			if (!is_object($xiaomihome)) {
+			$xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+			if (!is_object($xiaomihome2)) {
 				continue;
 			}
-			if (!$xiaomihome->getIsEnable()) {
+			if (!$xiaomihome2->getIsEnable()) {
 				continue;
 			}
-			log::add('xiaomihome', 'debug', 'Status ' . print_r($datas, true));
-			foreach ($xiaomihome->getCmd('info') as $cmd) {
+			log::add('xiaomihome2', 'debug', 'Status ' . print_r($datas, true));
+			foreach ($xiaomihome2->getCmd('info') as $cmd) {
 				$logicalId = $cmd->getLogicalId();
 				if ($logicalId == '') {
 					continue;
@@ -219,10 +219,10 @@ if (isset($result['devices'])) {
 					$cmd->event($value);
 				}
 				if (strpos($logicalId,'battery') !== false) {
-					$xiaomihome->batteryStatus($value);
+					$xiaomihome2->batteryStatus($value);
 				}
-				$xiaomihome->setStatus('lastCommunication',date('Y-m-d H:i:s'));
-				$xiaomihome->save();
+				$xiaomihome2->setStatus('lastCommunication',date('Y-m-d H:i:s'));
+				$xiaomihome2->save();
 			}
 		}
 	}
