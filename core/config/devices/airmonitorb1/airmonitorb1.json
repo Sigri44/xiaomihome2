@@ -1,0 +1,141 @@
+{
+	"airmonitorb1": {
+		"name": "Capteur de qualité d'air B1",
+		"groupe" : "Wifi",
+		"configuration" : {
+			"model" : "airmonitorb1",
+			"type" : "wifi",
+			"battery_type" : "Batterie"
+		},
+        "commands": [
+            {
+                "name": "Online",
+                "type": "info",
+                "subtype": "binary",
+                "display": {
+					"generic_type": "DONT"
+                },
+                "isVisible": 0,
+                "isHistorized": 0,
+                "logicalId": "online",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+          {
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+				"display": {
+					"icon": "<i class=\"icon divers-thermometer3\"><\/i>",
+					"showIconAndNamedashboard":"1"
+                },
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "°C",
+                "logicalId": "get_air_data::temperature",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+          {
+                "name": "Humidité",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+				"display": {
+					"icon": "<i class=\"icon jeedomapp-humidity\"><\/i>",
+					"showIconAndNamedashboard":"1"
+                },
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "%",
+                "logicalId": "get_air_data::humidity",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "pm25",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+				"display": {
+					"icon": "<i class=\"icon divers-viral\"><\/i>",
+					"showIconAndNamedashboard":"1"
+                },
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "ppm",
+                "logicalId": "get_air_data::pm25",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+          
+          {
+                "name": "co2",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+				"display": {
+					"icon": "<i class=\"icon nature-plant30\"><\/i>",
+					"showIconAndNamedashboard":"1"
+                },
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "ppm",
+                "logicalId": "get_air_data::co2e",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+          {
+                "name": "tvoc",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+				"display": {
+					"icon": "<i class=\"icon nature-plant30\"><\/i>",
+					"showIconAndNamedashboard":"1"
+                },
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "ppm",
+                "logicalId": "get_air_data::tvoc",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+          
+		
+			{
+                "name": "Rafraichir",
+                "type": "action",
+                "subtype": "other",
+				"display": {
+					"icon": "<i class=\"fas fa-refresh\"><\/i>"
+                },
+                "isVisible": 1,
+                "logicalId": "refresh"
+            }
+        ]
+    }
+}

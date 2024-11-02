@@ -1,0 +1,178 @@
+{
+	"ricecooker": {
+		"name": "Cuiseur de riz",
+		"groupe" : "Wifi",
+		"configuration" : {
+			"model" : "ricecooker",
+			"type" : "wifi"
+		},
+        "commands": [
+					{
+							"name": "Online",
+							"type": "info",
+							"subtype": "binary",
+							"display": {
+				"generic_type": "DONT"
+							},
+							"isVisible": 0,
+							"isHistorized": 0,
+							"logicalId": "online",
+							"template": {
+				"dashboard": "line",
+				"mobile": "line"
+			}
+					},
+				{
+							"name": "Statut",
+							"type": "info",
+							"subtype": "string",
+							"display": {
+				"generic_type": "DONT"
+							},
+							"isVisible": 1,
+							"logicalId": "status::func",
+							"template": {
+				"dashboard": "line",
+				"mobile": "line"
+			}
+					},
+				{
+							"name": "Etape",
+							"type": "info",
+							"subtype": "string",
+							"display": {
+				"generic_type": "DONT"
+							},
+							"isVisible": 1,
+							"logicalId": "status::stage",
+							"template": {
+				"dashboard": "line",
+				"mobile": "line"
+			}
+					},
+				{
+							"name": "Durée Restante",
+							"type": "info",
+							"subtype": "numeric",
+							"display": {
+				"generic_type": "DONT"
+							},
+							"isVisible": 1,
+							"logicalId": "status::t_func",
+							"template": {
+				"dashboard": "line",
+				"mobile": "line"
+			}
+					},
+				{
+							"name": "Durée précuisson",
+							"type": "info",
+							"subtype": "numeric",
+							"display": {
+				"generic_type": "DONT"
+							},
+							"isVisible": 0,
+							"logicalId": "status::t_precook",
+							"template": {
+				"dashboard": "line",
+				"mobile": "line"
+			}
+					},
+				{
+							"name": "Durée Cuisson",
+							"type": "info",
+							"subtype": "numeric",
+							"display": {
+				"generic_type": "DONT"
+							},
+							"isVisible": 0,
+							"logicalId": "status::t_cook",
+							"template": {
+				"dashboard": "line",
+				"mobile": "line"
+			}
+		},
+		{
+				"name": "Arrêter",
+				"type": "action",
+				"subtype": "other",
+				"display": {
+	"icon": "<i class=\"fas fa-stop\"><\/i>"
+				},
+				"configuration" : {
+			"request" : "set_func",
+	"params" : "[\"end02\"]"
+		},
+				"isVisible": 1,
+				"logicalId": "off"
+		},
+		{
+				"name": "Cuisson Normale",
+				"type": "action",
+				"subtype": "other",
+				"display": {
+	"icon": "<i class=\"fas fa-play\"><\/i>"
+				},
+				"configuration" : {
+			"request" : "set_start",
+	"params" : "[\"0001E101000000000000800200A00069030103730000085A020000EB006B040103740000095A0400012D006E0501037400000A5A0401FFFF00700601047600000C5A0401052D0A0F3C0A1E91FF820E01FF05FF78826EFF10FF786E02690F0DFF826EFF691000FF826EFF69100069FF5AFF00000000000081E9\"]"
+		},
+				"isVisible": 1,
+				"logicalId": "normal"
+		},
+		{
+				"name": "Cuisson Rapide",
+				"type": "action",
+				"subtype": "other",
+				"display": {
+		"icon": "<i class=\"icon divers-triangular42\"><\/i>"
+				},
+				"configuration" : {
+			"request" : "set_start",
+		"params" : "[\"0002E100280000000000800200D20069030103730000075A0200012D006B040103740000075A02000182006E050003740000095A0401FFFF0070060004760000095A040100280A063C0D1E91FF820E01FF05FF78826EFF10FF786E02690F0FFF826EFF69100082826EFF69100069FF5AFF00000000000015B6\"]"
+		},
+				"isVisible": 1,
+				"logicalId": "quick"
+		},
+		{
+				"name": "Maintien au chaud",
+				"type": "action",
+				"subtype": "other",
+				"display": {
+		"icon": "<i class=\"fas fa-fire\"><\/i>"
+				},
+				"configuration" : {
+			"request" : "set_start",
+		"params" : "[\"00040C180018000001000045000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000280A0082001E914E730801001E82FF736E0610FF756E02690A0F75826E0169101E75826E0169100069005A000000000000001BA2\"]"
+		},
+				"isVisible": 1,
+				"logicalId": "warm"
+		},
+		{
+				"name": "Démarrer un profile",
+				"type": "action",
+				"subtype": "message",
+				"configuration" : {
+			"request" : "set_start",
+		"params" : "[\"#message#\"]"
+		},
+		"display" : {
+			"title_disable" : 1,
+			"message_placeholder" : "ID du profile"
+		},
+				"isVisible": 0,
+				"logicalId": "profile"
+		},
+{
+				"name": "Rafraichir",
+				"type": "action",
+				"subtype": "other",
+"display": {
+	"icon": "<i class=\"fas fa-refresh\"><\/i>"
+				},
+				"isVisible": 1,
+				"logicalId": "refresh"
+		}
+        ]
+    }
+}

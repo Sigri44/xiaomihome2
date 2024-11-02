@@ -1,0 +1,21 @@
+{
+   "pip3": {
+     "pyudev" : {},
+     "construct" : {},
+     "requests" : {},
+     "pyserial" : {},
+     "future" : {},
+     "pycrypto" : {},
+     "cryptography" : {},
+     "enum34" : {},
+     "enum-compat" : {},
+     "wheel" : {},
+     "yeelight" : {},
+     "python-miio" : {}
+    },
+    "apt" : {
+      "python3-cryptography" : {},
+      "libffi-dev" : {},
+      "libssl-dev" : {}
+    }
+  }

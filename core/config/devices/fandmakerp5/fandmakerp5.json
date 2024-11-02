@@ -1,0 +1,427 @@
+{
+	"fandmakerp5": {
+		"name": "Ventilateur Dmaker",
+		"groupe" : "Wifi",
+		"configuration" : {
+			"model" : "fandmakerp5",
+			"type" : "wifi",
+			"battery_type" : "Batterie"
+		},
+        "commands": [
+            {
+                "name": "Online",
+                "type": "info",
+                "subtype": "binary",
+                "display": {
+					"generic_type": "DONT"
+                },
+                "isVisible": 0,
+                "isHistorized": 0,
+                "logicalId": "online",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "Statut",
+                "type": "info",
+                "subtype": "binary",
+                "display": {
+					"generic_type": "ENERGY_STATE"
+                },
+                "isVisible": 1,
+                "isHistorized": 0,
+                "logicalId": "status::power",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "Mode",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "logicalId": "status::mode",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "Rotation",
+                "type": "info",
+                "subtype": "binary",
+                "display": {
+					"generic_type": "DONT"
+                },
+                "isVisible": 1,
+                "isHistorized": 0,
+				"unite" : "",
+                "logicalId": "status::roll_enable",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "Angle",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+                "isVisible": 1,
+                "isHistorized": 0,
+				"unite" : "°",
+                "logicalId": "status::roll_angle",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "Vitesse",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+					"generic_type": "DONT"
+                },
+                "isVisible": 1,
+                "isHistorized": 0,
+				"unite" : "rpm",
+                "logicalId": "status::speed",
+                "template": {
+					"dashboard": "line",
+					"mobile": "line"
+				}
+            },
+			{
+                "name": "Statut buzzer",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 0,
+                "logicalId": "status::beep_sound"
+            },
+			{
+                "name": "Statut led",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 0,
+                "logicalId": "status::light"
+            },
+			{
+                "name": "Statut child lock",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 0,
+                "logicalId": "status::child_lock"
+            },
+			{
+                "name": "Statut time off",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "logicalId": "status::time_off"
+            },
+			{
+                "name": "1",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_speed",
+					"params" : "[1]"
+        		},
+                "isVisible": 1,
+                "logicalId": "speed1"
+            },
+			{
+                "name": "2",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_speed",
+					"params" : "[35]"
+        		},
+                "isVisible": 1,
+                "logicalId": "speed2"
+            },
+			{
+                "name": "3",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_speed",
+					"params" : "[70]"
+        		},
+                "isVisible": 1,
+                "logicalId": "speed3"
+            },
+						{
+                "name": "4",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_speed",
+					"params" : "[100]"
+        		},
+                "isVisible": 1,
+                "logicalId": "speed4"
+            },
+			{
+                "name": "30",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_angle",
+					"params" : "[30]"
+        		},
+                "isVisible": 1,
+                "logicalId": "angle30"
+            },
+			{
+                "name": "60",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_angle",
+					"params" : "[60]"
+        		},
+                "isVisible": 1,
+                "logicalId": "angle60"
+            },
+			{
+                "name": "90",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_angle",
+					"params" : "[90]"
+        		},
+                "isVisible": 1,
+                "logicalId": "angle90"
+            },
+			{
+                "name": "120",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_angle",
+					"params" : "[120]"
+        		},
+                "isVisible": 1,
+                "logicalId": "angle120"
+            },
+						{
+                "name": "140",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_angle",
+					"params" : "[140]"
+        		},
+                "isVisible": 1,
+                "logicalId": "angle140"
+            },
+            {
+                "name": "Démarrer",
+                "type": "action",
+                "subtype": "other",
+                "display": {
+					"icon": "<i class=\"fas fa-play\"><\/i>",
+					"generic_type": "ENERGY_ON"
+                },
+                "configuration" : {
+        			"request" : "s_power",
+					"params" : "[true]"
+        		},
+                "isVisible": 1,
+                "logicalId": "on"
+            },
+            {
+                "name": "Arrêter",
+                "type": "action",
+                "subtype": "other",
+                "display": {
+					"icon": "<i class=\"fas fa-stop\"><\/i>",
+					"generic_type": "ENERGY_OFF"
+                },
+                "configuration" : {
+        			"request" : "s_power",
+					"params" : "[false]"
+        		},
+                "isVisible": 1,
+                "logicalId": "off"
+            },
+            {
+                "name": "Activer rotation",
+                "type": "action",
+                "subtype": "other",
+                "display": {
+					"icon": "<i class=\"icon divers-triangular42\"><\/i>"
+                },
+                "configuration" : {
+        			"request" : "s_roll",
+					"params" : "[true]"
+        		},
+                "isVisible": 1,
+                "logicalId": "rotationon"
+            },
+			{
+			    "name": "Désactiver rotation",
+                "type": "action",
+                "subtype": "other",
+                "display": {
+					"icon": "<i class=\"icon techno-electric9\"><\/i>"
+                },
+                "configuration" : {
+        			"request" : "s_roll",
+					"params" : "[false]"
+        		},
+                "isVisible": 1,
+                "logicalId": "rotationoff"
+            },
+			{
+                "name": "Buzzer On",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_sound",
+					"params" : "[true]"
+        		},
+                "isVisible": 0,
+                "logicalId": "buzzon"
+            },
+			{
+                "name": "Buzzer Off",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_sound",
+					"params" : "[false]"
+        		},
+                "isVisible": 0,
+                "logicalId": "buzzoff"
+            },
+			{
+                "name": "Diode On",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_light",
+					"params" : "[true]"
+        		},
+                "isVisible": 0,
+                "logicalId": "ledb"
+            },
+			{
+                "name": "Diode Off",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_light",
+					"params" : "[false]"
+        		},
+                "isVisible": 0,
+                "logicalId": "ledboff"
+            },{
+                "name": "Lock On",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_lock",
+					"params" : "[true]"
+        		},
+                "isVisible": 0,
+                "logicalId": "lockon"
+            },
+			{
+                "name": "Lock Off",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_lock",
+					"params" : "[false]"
+        		},
+                "isVisible": 0,
+                "logicalId": "lockoff"
+            },
+			{
+                "name": "Timer",
+                "type": "action",
+                "subtype": "slider",
+                "configuration" : {
+        			"request" : "s_t_off",
+                    "minValue" : 0,
+                    "maxValue" : 600,
+					"params" : "[#slider#]"
+        		},
+                "value": "Statut time off",
+                "isVisible": 0,
+                "logicalId": "Statuttimeoff"
+            },
+          {
+			    "name": "Tourner à gauche",
+                "type": "action",
+                "subtype": "other",
+                "display": {
+					"icon": "<i class=\"fas fa-arrow-left\"><\/i>"
+                },
+                "configuration" : {
+        			"request" : "m_roll",
+					"params" : "[\"left\"]"
+        		},
+                "isVisible": 1,
+                "logicalId": "moveleft"
+            },
+			{
+                "name": "Mode Nature",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_mode",
+					"params" : "[\"nature\"]"
+        		},
+                "isVisible": 1,
+                "logicalId": "naturemode"
+            },
+			{
+                "name": "Mode Normal",
+                "type": "action",
+                "subtype": "other",
+                "configuration" : {
+        			"request" : "s_mode",
+					"params" : "[\"normal\"]"
+        		},
+                "isVisible": 1,
+                "logicalId": "normalmode"
+            },
+			{
+			    "name": "Tourner à droite",
+                "type": "action",
+                "subtype": "other",
+                "display": {
+					"icon": "<i class=\"fas fa-arrow-right\"><\/i>"
+                },
+                "configuration" : {
+        			"request" : "m_roll",
+					"params" : "[\"right\"]"
+        		},
+                "isVisible": 1,
+                "logicalId": "moveright"
+            },
+			 {
+                "name": "Rafraichir",
+                "type": "action",
+                "subtype": "other",
+				"display": {
+					"icon": "<i class=\"fas fa-refresh\"><\/i>"
+                },
+                "isVisible": 1,
+                "logicalId": "refresh"
+            }
+        ]
+    }
+}
