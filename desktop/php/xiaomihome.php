@@ -3,9 +3,9 @@
 if (!isConnect('admin')) {
   throw new Exception('{{401 - Accès non autorisé}}');
 }
-$plugin = plugin::byId('xiaomihome');
-sendVarToJS('eqType', 'xiaomihome');
-$eqLogics = eqLogic::byType('xiaomihome');
+$plugin = plugin::byId('xiaomihome2');
+sendVarToJS('eqType', 'xiaomihome2');
+$eqLogics = eqLogic::byType('xiaomihome2');
 $eqLogicsBlea = array();
 if (class_exists('blea')){
   $eqLogicsBlea = eqLogic::byType('blea');
@@ -44,7 +44,7 @@ if (class_exists('blea')){
         <br/>
         <span>{{Configuration}}</span>
       </div>
-      <div class="cursor logoSecondary" id="bt_healthxiaomihome">
+      <div class="cursor logoSecondary" id="bt_healthxiaomihome2">
           <i class="fas fa-medkit"></i>
         <br/>
         <span>{{Santé}}</span>
@@ -74,7 +74,7 @@ if (class_exists('blea')){
           echo '<i class="fas fa-times" style="font-size:0.9em !important;float:right" title="Offline"></i>';
         }
         if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogicGateway->getConfiguration('model') . '/' . $eqLogicGateway->getConfiguration('model') . '.png')) {
-          echo '<img src="plugins/xiaomihome/core/config/devices/' . $eqLogicGateway->getConfiguration('model') . '/' . $eqLogicGateway->getConfiguration('model') . '.png' . '"/>';
+          echo '<img src="plugins/xiaomihome2/core/config/devices/' . $eqLogicGateway->getConfiguration('model') . '/' . $eqLogicGateway->getConfiguration('model') . '.png' . '"/>';
         } else {
           echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
         }
@@ -89,7 +89,7 @@ if (class_exists('blea')){
               echo '<i class="fas fa-times" style="font-size:0.9em !important;float:right" title="Offline"></i>';
             }
             if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png')) {
-              echo '<img src="plugins/xiaomihome/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '"/>';
+              echo '<img src="plugins/xiaomihome2/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '"/>';
             } else {
               echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
             }
@@ -125,7 +125,7 @@ if (class_exists('blea')){
           echo '<i class="fas fa-times" style="font-size:0.9em !important;float:right" title="Offline"></i>';
         }
         if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png')) {
-          echo '<img src="plugins/xiaomihome/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '" />';
+          echo '<img src="plugins/xiaomihome2/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '" />';
         } else {
           echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
         }
@@ -162,7 +162,7 @@ if (class_exists('blea')){
         }
 		echo '<br/>';
 		 if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png')) {
-				echo '<img src="plugins/xiaomihome/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '"/>';
+				echo '<img src="plugins/xiaomihome2/core/config/devices/' . $eqLogic->getConfiguration('model') . '/' . $eqLogic->getConfiguration('model') . '.png' . '"/>';
 		 } else {
           echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
         }
@@ -200,7 +200,7 @@ if (class_exists('blea')){
                 <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
                 <div class="col-sm-6">
                   <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-                  <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement xiaomihome}}"/>
+                  <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement xiaomihome2}}"/>
                 </div>
               </div>
               <div class="form-group">
@@ -261,7 +261,7 @@ if (class_exists('blea')){
                     <?php
                     $groups = array();
 
-                    foreach (xiaomihome::devicesParameters() as $key => $info) {
+                    foreach (xiaomihome2::devicesParameters() as $key => $info) {
                       if (isset($info['groupe'])) {
                         $info['key'] = $key;
                         if (!isset($groups[$info['groupe']])) {
@@ -298,7 +298,7 @@ if (class_exists('blea')){
                     <?php
                     $groups = array();
 
-                    foreach (xiaomihome::devicesParameters() as $key => $info) {
+                    foreach (xiaomihome2::devicesParameters() as $key => $info) {
                       if (isset($info['groupe'])) {
                         $info['key'] = $key;
                         if (!isset($groups[$info['groupe']])) {
@@ -360,7 +360,7 @@ if (class_exists('blea')){
               </div>
 
               <center>
-                <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"  onerror="this.src='plugins/xiaomihome/plugin_info/xiaomihome_icon.png'"/>
+                <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"  onerror="this.src='plugins/xiaomihome2/plugin_info/xiaomihome_icon.png'"/>
               </center>
 			  <br/>
             </fieldset>
@@ -392,5 +392,5 @@ if (class_exists('blea')){
 </div>
 </div>
 
-<?php include_file('desktop', 'xiaomihome', 'js', 'xiaomihome'); ?>
+<?php include_file('desktop', 'xiaomihome2', 'js', 'xiaomihome2'); ?>
 <?php include_file('core', 'plugin.template', 'js'); ?>
