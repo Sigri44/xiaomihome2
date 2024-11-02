@@ -270,7 +270,7 @@ class xiaomihome2 extends eqLogic {
     if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $this->getConfiguration('model') . '/' . $this->getConfiguration('model') . '.png')) {
       return 'plugins/xiaomihome2/core/config/devices/' . $this->getConfiguration('model') . '/' . $this->getConfiguration('model') . '.png';
     } else {
-      return 'plugins/xiaomihome2/plugin_info/xiaomihome2_icon.png';
+      return 'plugins/xiaomihome2/plugin_info/xiaomihome_icon.png';
     }
   }
 
