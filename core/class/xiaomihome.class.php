@@ -17,34 +17,34 @@
 */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-class xiaomihome extends eqLogic {
+class xiaomihome2 extends eqLogic {
   public static function cron5() {
     $deamon_info = self::deamon_info();
     if ($deamon_info['state'] != 'ok') {
       return;
     }
-    $eqLogics = eqLogic::byType('xiaomihome', true);
-    foreach($eqLogics as $xiaomihome) {
-      if ($xiaomihome->getConfiguration('type') == 'wifi') {
-        if ($xiaomihome->pingHost($xiaomihome->getConfiguration('ipwifi')) == false) {
-          log::add('xiaomihome', 'debug', 'Offline Wifi : ' . $xiaomihome->getName());
+    $eqLogics = eqLogic::byType('xiaomihome2', true);
+    foreach($eqLogics as $xiaomihome2) {
+      if ($xiaomihome2->getConfiguration('type') == 'wifi') {
+        if ($xiaomihome2->pingHost($xiaomihome2->getConfiguration('ipwifi')) == false) {
+          log::add('xiaomihome2', 'debug', 'Offline Wifi : ' . $xiaomihome2->getName());
         } else {
-          log::add('xiaomihome', 'debug', 'Rafraîchissement de XiaomiWifi : ' . $xiaomihome->getName());
-          $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'wifi','cmd' => 'refresh', 'model' => $xiaomihome->getConfiguration('model'), 'dest' => $xiaomihome->getConfiguration('gateway') , 'token' => $xiaomihome->getConfiguration('password') , 'devtype' => $xiaomihome->getConfiguration('short_id'), 'serial' => $xiaomihome->getConfiguration('sid')));
-          xiaomihome::sendDaemon($value);
+          log::add('xiaomihome2', 'debug', 'Rafraîchissement de XiaomiWifi : ' . $xiaomihome2->getName());
+          $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'wifi','cmd' => 'refresh', 'model' => $xiaomihome2->getConfiguration('model'), 'dest' => $xiaomihome2->getConfiguration('gateway') , 'token' => $xiaomihome2->getConfiguration('password') , 'devtype' => $xiaomihome2->getConfiguration('short_id'), 'serial' => $xiaomihome2->getConfiguration('sid')));
+          xiaomihome2::sendDaemon($value);
         }
       }
-      if ($xiaomihome->getConfiguration('type') == 'aquara' && $xiaomihome->getConfiguration('model') == 'gateway') {
-        log::add('xiaomihome', 'debug', 'Rafraîchissement de Aqara : ' . $xiaomihome->getName());
-        $xiaomihome->pingHost($xiaomihome->getConfiguration('gateway'));
+      if ($xiaomihome2->getConfiguration('type') == 'aquara' && $xiaomihome2->getConfiguration('model') == 'gateway') {
+        log::add('xiaomihome2', 'debug', 'Rafraîchissement de Aqara : ' . $xiaomihome2->getName());
+        $xiaomihome2->pingHost($xiaomihome2->getConfiguration('gateway'));
       }
-      if ($xiaomihome->getConfiguration('type') == 'yeelight') {
-        if ($xiaomihome->pingHost($xiaomihome->getConfiguration('gateway')) == false) {
-          log::add('xiaomihome', 'debug', 'Equipement Yeelight déconnecté : ' . $xiaomihome->getName());
+      if ($xiaomihome2->getConfiguration('type') == 'yeelight') {
+        if ($xiaomihome2->pingHost($xiaomihome2->getConfiguration('gateway')) == false) {
+          log::add('xiaomihome2', 'debug', 'Equipement Yeelight déconnecté : ' . $xiaomihome2->getName());
         } else {
-          log::add('xiaomihome', 'debug', 'Rafraîchissement de Yeelight : ' . $xiaomihome->getName());
-          $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'yeelight','cmd' => 'refresh', 'model' => $xiaomihome->getConfiguration('model'), 'dest' => $xiaomihome->getConfiguration('gateway') , 'token' => $xiaomihome->getConfiguration('password') , 'devtype' => $xiaomihome->getConfiguration('short_id'), 'serial' => $xiaomihome->getConfiguration('sid'), 'id' => $xiaomihome->getLogicalId()));
-          xiaomihome::sendDaemon($value);
+          log::add('xiaomihome2', 'debug', 'Rafraîchissement de Yeelight : ' . $xiaomihome2->getName());
+          $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'yeelight','cmd' => 'refresh', 'model' => $xiaomihome2->getConfiguration('model'), 'dest' => $xiaomihome2->getConfiguration('gateway') , 'token' => $xiaomihome2->getConfiguration('password') , 'devtype' => $xiaomihome2->getConfiguration('short_id'), 'serial' => $xiaomihome2->getConfiguration('sid'), 'id' => $xiaomihome2->getLogicalId()));
+          xiaomihome2::sendDaemon($value);
         }
       }
     }
@@ -53,15 +53,15 @@ class xiaomihome extends eqLogic {
   public static function createFromDef($_def,$_type) {
     event::add('jeedom::alert', array(
       'level' => 'warning',
-      'page' => 'xiaomihome',
+      'page' => 'xiaomihome2',
       'message' => __('Nouveau module détecté', __FILE__),
     ));
     if ($_type == 'aquara') {
       if (!isset($_def['model']) || !isset($_def['sid'])) {
-        log::add('xiaomihome', 'error', 'Information manquante pour ajouter l\'équipement : ' . print_r($_def, true));
+        log::add('xiaomihome2', 'error', 'Information manquante pour ajouter l\'équipement : ' . print_r($_def, true));
         event::add('jeedom::alert', array(
           'level' => 'danger',
-          'page' => 'xiaomihome',
+          'page' => 'xiaomihome2',
           'message' => __('Information manquante pour ajouter l\'équipement. Inclusion impossible.', __FILE__),
         ));
         return false;
@@ -70,11 +70,11 @@ class xiaomihome extends eqLogic {
       if ($_def['model'] == 'gateway') {
         $logical_id = $_def['source'];
       }
-      $xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-      if (!is_object($xiaomihome)) {
+      $xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+      if (!is_object($xiaomihome2)) {
         if ($_def['model'] == 'gateway') {
           //test si gateway qui a changé d'ip
-          foreach (eqLogic::byType('xiaomihome') as $gateway) {
+          foreach (eqLogic::byType('xiaomihome2') as $gateway) {
             if ($gateway->getConfiguration('sid') == $_def['sid']) {
               $gateway->setConfiguration('gateway',$_def['source']);
               $gateway->setLogicalId($logical_id );
@@ -85,46 +85,46 @@ class xiaomihome extends eqLogic {
         }
         $device = self::devicesParameters($_def['model']);
         if (!is_array($device) || count($device) == 0) {
-          log::add('xiaomihome', 'debug', 'Impossible d\'ajouter l\'équipement : ' . print_r($_def, true));
+          log::add('xiaomihome2', 'debug', 'Impossible d\'ajouter l\'équipement : ' . print_r($_def, true));
           return true;
         }
-        $xiaomihome = new xiaomihome();
-        $xiaomihome->setEqType_name('xiaomihome');
-        $xiaomihome->setLogicalId($logical_id);
-        $xiaomihome->setIsEnable(1);
-        $xiaomihome->setIsVisible(1);
-        $xiaomihome->setName($device['name'] . ' ' . $_def['sid']);
-        $xiaomihome->setConfiguration('sid', $_def['sid']);
-        $xiaomihome->setConfiguration('type', 'aquara');
+        $xiaomihome2 = new xiaomihome2();
+        $xiaomihome2->setEqType_name('xiaomihome2');
+        $xiaomihome2->setLogicalId($logical_id);
+        $xiaomihome2->setIsEnable(1);
+        $xiaomihome2->setIsVisible(1);
+        $xiaomihome2->setName($device['name'] . ' ' . $_def['sid']);
+        $xiaomihome2->setConfiguration('sid', $_def['sid']);
+        $xiaomihome2->setConfiguration('type', 'aquara');
         if (isset($device['configuration'])) {
           foreach ($device['configuration'] as $key => $value) {
-            $xiaomihome->setConfiguration($key, $value);
+            $xiaomihome2->setConfiguration($key, $value);
           }
         }
         event::add('jeedom::alert', array(
           'level' => 'warning',
-          'page' => 'xiaomihome',
+          'page' => 'xiaomihome2',
           'message' => __('Module inclus avec succès ' . $_def['model'], __FILE__),
         ));
       }
-      $xiaomihome->setConfiguration('short_id',$_def['short_id']);
-      $xiaomihome->setConfiguration('gateway',$_def['source']);
-      $xiaomihome->setStatus('lastCommunication',date('Y-m-d H:i:s'));
-      $xiaomihome->setConfiguration('applyDevice','');
-      $xiaomihome->save();
+      $xiaomihome2->setConfiguration('short_id',$_def['short_id']);
+      $xiaomihome2->setConfiguration('gateway',$_def['source']);
+      $xiaomihome2->setStatus('lastCommunication',date('Y-m-d H:i:s'));
+      $xiaomihome2->setConfiguration('applyDevice','');
+      $xiaomihome2->save();
     } elseif ($_type == 'yeelight') {
       if (!isset($_def['capabilities']['model']) || !isset($_def['capabilities']['id'])) {
-        log::add('xiaomihome', 'error', 'Information manquante pour ajouter l\'équipement : ' . print_r($_def, true));
+        log::add('xiaomihome2', 'error', 'Information manquante pour ajouter l\'équipement : ' . print_r($_def, true));
         event::add('jeedom::alert', array(
           'level' => 'danger',
-          'page' => 'xiaomihome',
+          'page' => 'xiaomihome2',
           'message' => __('Information manquante pour ajouter l\'équipement. Inclusion impossible.', __FILE__),
         ));
         return false;
       }
       $logical_id = $_def['capabilities']['id'];
-      $xiaomihome=xiaomihome::byLogicalId($logical_id, 'xiaomihome');
-      if (!is_object($xiaomihome)) {
+      $xiaomihome2=xiaomihome2::byLogicalId($logical_id, 'xiaomihome2');
+      if (!is_object($xiaomihome2)) {
         $device = self::devicesParameters($_def['capabilities']['model']);
         if (!is_array($device)) {
           return true;
@@ -132,41 +132,41 @@ class xiaomihome extends eqLogic {
         if (count($device) == 0) {
           $device = self::devicesParameters('color');
         }
-        $xiaomihome = new xiaomihome();
-        $xiaomihome->setEqType_name('xiaomihome');
-        $xiaomihome->setLogicalId($logical_id);
-        $xiaomihome->setName($_def['capabilities']['model'] . ' ' . $logical_id);
-        $xiaomihome->setConfiguration('sid', $logical_id);
-        $xiaomihome->setIsEnable(1);
-        $xiaomihome->setIsVisible(1);
+        $xiaomihome2 = new xiaomihome2();
+        $xiaomihome2->setEqType_name('xiaomihome2');
+        $xiaomihome2->setLogicalId($logical_id);
+        $xiaomihome2->setName($_def['capabilities']['model'] . ' ' . $logical_id);
+        $xiaomihome2->setConfiguration('sid', $logical_id);
+        $xiaomihome2->setIsEnable(1);
+        $xiaomihome2->setIsVisible(1);
         if (isset($device['configuration'])) {
           foreach ($device['configuration'] as $key => $value) {
-            $xiaomihome->setConfiguration($key, $value);
+            $xiaomihome2->setConfiguration($key, $value);
           }
         }
         event::add('jeedom::alert', array(
           'level' => 'warning',
-          'page' => 'xiaomihome',
+          'page' => 'xiaomihome2',
           'message' => __('Module inclus avec succès ' . $_def['capabilities']['model'], __FILE__),
         ));
       }
-      $xiaomihome->setConfiguration('model',$_def['capabilities']['model']);
-      $xiaomihome->setConfiguration('short_id',$_def['capabilities']['fw_ver']);
-      $xiaomihome->setConfiguration('gateway',$_def['ip']);
-      $xiaomihome->setConfiguration('ipwifi', $_def['ip']);
-      $xiaomihome->setStatus('lastCommunication',date('Y-m-d H:i:s'));
-      $xiaomihome->setConfiguration('applyDevice','');
-      $xiaomihome->setConfiguration('type', 'yeelight');
-      $xiaomihome->save();
+      $xiaomihome2->setConfiguration('model',$_def['capabilities']['model']);
+      $xiaomihome2->setConfiguration('short_id',$_def['capabilities']['fw_ver']);
+      $xiaomihome2->setConfiguration('gateway',$_def['ip']);
+      $xiaomihome2->setConfiguration('ipwifi', $_def['ip']);
+      $xiaomihome2->setStatus('lastCommunication',date('Y-m-d H:i:s'));
+      $xiaomihome2->setConfiguration('applyDevice','');
+      $xiaomihome2->setConfiguration('type', 'yeelight');
+      $xiaomihome2->save();
     }
-    return $xiaomihome;
+    return $xiaomihome2;
   }
 
   public static function deamon_info() {
     $return = array();
-    $return['log'] = 'xiaomihome';
+    $return['log'] = 'xiaomihome2';
     $return['state'] = 'nok';
-    $pid_file = jeedom::getTmpFolder('xiaomihome') . '/deamon.pid';
+    $pid_file = jeedom::getTmpFolder('xiaomihome2') . '/deamon.pid';
     if (file_exists($pid_file)) {
       if (@posix_getsid(trim(file_get_contents($pid_file)))) {
         $return['state'] = 'ok';
@@ -191,16 +191,16 @@ class xiaomihome extends eqLogic {
     } else {
       $url = network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp');
     }
-    $xiaomihome_path = realpath(dirname(__FILE__) . '/../../resources/xiaomihomed');
-    $cmd = '/usr/bin/python3 ' . $xiaomihome_path . '/xiaomihomed.py';
-    $cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel('xiaomihome'));
-    $cmd .= ' --socketport ' . config::byKey('socketport', 'xiaomihome');
-    $cmd .= ' --callback ' . $url . '/plugins/xiaomihome/core/php/jeeXiaomiHome.php';
-    $cmd .= ' --apikey ' . jeedom::getApiKey('xiaomihome');
-    $cmd .= ' --cycle ' . config::byKey('cycle', 'xiaomihome');
-    $cmd .= ' --pid ' . jeedom::getTmpFolder('xiaomihome') . '/deamon.pid';
-    log::add('xiaomihome', 'info', 'Lancement démon xiaomihome : ' . $cmd);
-    $result = exec($cmd . ' >> ' . log::getPathToLog('xiaomihome') . ' 2>&1 &');
+    $xiaomihome2_path = realpath(dirname(__FILE__) . '/../../resources/xiaomihomed');
+    $cmd = '/usr/bin/python3 ' . $xiaomihome2_path . '/xiaomihomed.py';
+    $cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel('xiaomihome2'));
+    $cmd .= ' --socketport ' . config::byKey('socketport', 'xiaomihome2');
+    $cmd .= ' --callback ' . $url . '/plugins/xiaomihome2/core/php/jeexiaomihome.php';
+    $cmd .= ' --apikey ' . jeedom::getApiKey('xiaomihome2');
+    $cmd .= ' --cycle ' . config::byKey('cycle', 'xiaomihome2');
+    $cmd .= ' --pid ' . jeedom::getTmpFolder('xiaomihome2') . '/deamon.pid';
+    log::add('xiaomihome2', 'info', 'Lancement démon xiaomihome2 : ' . $cmd);
+    $result = exec($cmd . ' >> ' . log::getPathToLog('xiaomihome2') . ' 2>&1 &');
     $i = 0;
     while ($i < 30) {
       $deamon_info = self::deamon_info();
@@ -211,66 +211,66 @@ class xiaomihome extends eqLogic {
       $i++;
     }
     if ($i >= 30) {
-      log::add('xiaomihome', 'error', 'Impossible de lancer le démon xiaomihomed. Vérifiez le log.', 'unableStartDeamon');
+      log::add('xiaomihome2', 'error', 'Impossible de lancer le démon xiaomihome2d. Vérifiez le log.', 'unableStartDeamon');
       return false;
     }
-    message::removeAll('xiaomihome', 'unableStartDeamon');
+    message::removeAll('xiaomihome2', 'unableStartDeamon');
     return true;
   }
 
   public static function deamon_stop() {
-    $pid_file = jeedom::getTmpFolder('xiaomihome') . '/deamon.pid';
+    $pid_file = jeedom::getTmpFolder('xiaomihome2') . '/deamon.pid';
     if (file_exists($pid_file)) {
       $pid = intval(trim(file_get_contents($pid_file)));
       system::kill($pid);
     }
     system::kill('xiaomihomed.py');
-    system::fuserk(config::byKey('socketport', 'xiaomihome'));
+    system::fuserk(config::byKey('socketport', 'xiaomihome2'));
   }
 
   public static function discover($_mode) {
     if ($_mode == 'wifi') {
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'cmd' => 'scanwifi'));
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'cmd' => 'scanwifi'));
     } else {
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'cmd' => 'scanyeelight'));
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'cmd' => 'scanyeelight'));
     }
     $socket = socket_create(AF_INET, SOCK_STREAM, 0);
-    socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome'));
+    socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome2'));
     socket_write($socket, $value, strlen($value));
     socket_close($socket);
   }
 
   public function get_wifi_info(){
     if ($this->getConfiguration('type') == 'wifi' && $this->getConfiguration('ipwifi') != ''){
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'wifi','cmd' => 'discover', 'dest' => $this->getConfiguration('ipwifi') , 'token' => $this->getConfiguration('password') , 'model' => $this->getConfiguration('model')));
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'wifi','cmd' => 'discover', 'dest' => $this->getConfiguration('ipwifi') , 'token' => $this->getConfiguration('password') , 'model' => $this->getConfiguration('model')));
       $socket = socket_create(AF_INET, SOCK_STREAM, 0);
-      socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome'));
+      socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome2'));
       socket_write($socket, $value, strlen($value));
       socket_close($socket);
     }
   }
 
   public function inclusion_mode(){
-    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'aquara','cmd' => 'send', 'password' => $this->getConfiguration('password',''),'sidG' => $this->getConfiguration('sid'), 'dest' => $this->getConfiguration('gateway') , 'token' => $this->getConfiguration('password') , 'model' => $this->getConfiguration('model'), 'sid' => $this->getConfiguration('sid'), 'short_id' => $this->getConfiguration('short_id'),'switch' => 'join_permission', 'request' => 'yes'));
+    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'aquara','cmd' => 'send', 'password' => $this->getConfiguration('password',''),'sidG' => $this->getConfiguration('sid'), 'dest' => $this->getConfiguration('gateway') , 'token' => $this->getConfiguration('password') , 'model' => $this->getConfiguration('model'), 'sid' => $this->getConfiguration('sid'), 'short_id' => $this->getConfiguration('short_id'),'switch' => 'join_permission', 'request' => 'yes'));
     $socket = socket_create(AF_INET, SOCK_STREAM, 0);
-    socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome'));
+    socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome2'));
     socket_write($socket, $value, strlen($value));
     socket_close($socket);
   }
 
   public function exclusion_mode($target_sid){
-    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'aquara','cmd' => 'send', 'password' => $this->getConfiguration('password',''),'sidG' => $this->getConfiguration('sid'), 'dest' => $this->getConfiguration('gateway') , 'token' => $this->getConfiguration('password') , 'model' => $this->getConfiguration('model'), 'sid' => $this->getConfiguration('sid'), 'short_id' => $this->getConfiguration('short_id'),'switch' => 'remove_device', 'request' => $target_sid));
+    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'aquara','cmd' => 'send', 'password' => $this->getConfiguration('password',''),'sidG' => $this->getConfiguration('sid'), 'dest' => $this->getConfiguration('gateway') , 'token' => $this->getConfiguration('password') , 'model' => $this->getConfiguration('model'), 'sid' => $this->getConfiguration('sid'), 'short_id' => $this->getConfiguration('short_id'),'switch' => 'remove_device', 'request' => $target_sid));
     $socket = socket_create(AF_INET, SOCK_STREAM, 0);
-    socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome'));
+    socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome2'));
     socket_write($socket, $value, strlen($value));
     socket_close($socket);
   }
 
   public function getImage() {
     if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $this->getConfiguration('model') . '/' . $this->getConfiguration('model') . '.png')) {
-      return 'plugins/xiaomihome/core/config/devices/' . $this->getConfiguration('model') . '/' . $this->getConfiguration('model') . '.png';
+      return 'plugins/xiaomihome2/core/config/devices/' . $this->getConfiguration('model') . '/' . $this->getConfiguration('model') . '.png';
     } else {
-      return 'plugins/xiaomihome/plugin_info/xiaomihome_icon.png';
+      return 'plugins/xiaomihome2/plugin_info/xiaomihome2_icon.png';
     }
   }
 
@@ -340,7 +340,7 @@ class xiaomihome extends eqLogic {
     }
     event::add('jeedom::alert', array(
       'level' => 'warning',
-      'page' => 'xiaomihome',
+      'page' => 'xiaomihome2',
       'message' => __('Périphérique reconnu, intégration en cours...', __FILE__),
     ));
     if (isset($device['configuration'])) {
@@ -358,7 +358,7 @@ class xiaomihome extends eqLogic {
     $link_actions = array();
     event::add('jeedom::alert', array(
       'level' => 'warning',
-      'page' => 'xiaomihome',
+      'page' => 'xiaomihome2',
       'message' => __('Création des commandes...', __FILE__),
     ));
 
@@ -394,7 +394,7 @@ class xiaomihome extends eqLogic {
         }
         try {
           if ($cmd == null || !is_object($cmd)) {
-            $cmd = new xiaomihomeCmd();
+            $cmd = new xiaomihome2Cmd();
             $cmd->setOrder($cmd_order);
             $cmd->setEqLogic_id($this->getId());
           } else {
@@ -449,7 +449,7 @@ class xiaomihome extends eqLogic {
     if (isset($device['afterInclusionSend']) && $device['afterInclusionSend'] != '') {
       event::add('jeedom::alert', array(
         'level' => 'warning',
-        'page' => 'xiaomihome',
+        'page' => 'xiaomihome2',
         'message' => __('Envoi des commandes post-inclusion...', __FILE__),
       ));
       sleep(5);
@@ -467,32 +467,32 @@ class xiaomihome extends eqLogic {
     sleep(2);
     event::add('jeedom::alert', array(
       'level' => 'warning',
-      'page' => 'xiaomihome',
+      'page' => 'xiaomihome2',
       'message' => '',
     ));
   }
   public static function receiveAquaraData($id, $model, $key, $value) {
-    $xiaomihome = self::byLogicalId($id, 'xiaomihome');
-    if (is_object($xiaomihome)) {
+    $xiaomihome2 = self::byLogicalId($id, 'xiaomihome2');
+    if (is_object($xiaomihome2)) {
       if ($key == 'humidity' || $key == 'temperature' || $key == 'pressure') {
         $value = $value / 100;
       }
       else if ($key == 'rotate') {
         $mvalues = explode(',',$value);
-        $xiaomihome->checkAndUpdateCmd('rotatetime', $mvalues[1]);
+        $xiaomihome2->checkAndUpdateCmd('rotatetime', $mvalues[1]);
         $value = $mvalues[0] * 3.6;
         if ($value  > 0) {
-          $xiaomihome->checkAndUpdateCmd('status', 'rotate_right');
+          $xiaomihome2->checkAndUpdateCmd('status', 'rotate_right');
         } else {
-          $xiaomihome->checkAndUpdateCmd('status', 'rotate_left');
+          $xiaomihome2->checkAndUpdateCmd('status', 'rotate_left');
         }
       }
       else if ($key == 'rgb') {
         $value = str_pad(dechex($value), 8, "0", STR_PAD_LEFT);
         $light = hexdec(substr($value, 0, 2));
         $value = '#' . substr($value, -6);
-        $xiaomihome->checkAndUpdateCmd('brightness', $light);
-        $xiaomihome->checkAndUpdateCmd('rgb', $value);
+        $xiaomihome2->checkAndUpdateCmd('brightness', $light);
+        $xiaomihome2->checkAndUpdateCmd('rgb', $value);
       }
       else if ($key == 'voltage') {
         if ($model != 'plug' && $model != 'gateway' && $model != 'natgas') {
@@ -503,10 +503,10 @@ class xiaomihome extends eqLogic {
           } else {
             $battery = 1;
           }
-          $xiaomihome->checkAndUpdateCmd('battery', $battery);
-          $xiaomihome->setConfiguration('battery',$battery);
-          $xiaomihome->batteryStatus($battery);
-          $xiaomihome->save();
+          $xiaomihome2->checkAndUpdateCmd('battery', $battery);
+          $xiaomihome2->setConfiguration('battery',$battery);
+          $xiaomihome2->batteryStatus($battery);
+          $xiaomihome2->save();
         }
 
         $value = $value /1000;
@@ -518,23 +518,23 @@ class xiaomihome extends eqLogic {
           } else {
             $visibility = 100 - $value/10;
           }
-          $xiaomihome->checkAndUpdateCmd('visibility', $visibility);
+          $xiaomihome2->checkAndUpdateCmd('visibility', $visibility);
         }
       }
       else if ($key == 'power_consumed') {
         $value = $value /1000;
       }
       else if ($key == 'no_motion') {
-        $xiaomihome->checkAndUpdateCmd('status', 0);
+        $xiaomihome2->checkAndUpdateCmd('status', 0);
       }
       else if ($key == 'no_close') {
-        $xiaomihome->checkAndUpdateCmd('status', 1);
+        $xiaomihome2->checkAndUpdateCmd('status', 1);
       }
       else if (($key == 'channel_0' || $key == 'channel_1') && ($model == 'ctrl_neutral1' || $model == 'ctrl_neutral2' || $model == 'ctrl_ln1.aq1' || $model == 'ctrl_ln2.aq1')) {
         $value = ($value == 'on') ? 1 : 0;
       }
       else if ($key == 'curtain_level') {
-        $curtain_level = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),'curtain_level');
+        $curtain_level = xiaomihome2Cmd::byEqLogicIdAndLogicalId($xiaomihome2->getId(),'curtain_level');
         if ($curtain_level->getConfiguration('invert') == 1) {
           $value = 100 - $value;
         }
@@ -542,7 +542,7 @@ class xiaomihome extends eqLogic {
       else if ($key == 'status') {
         if ($model == 'motion' || $model == 'sensor_motion.aq2') {
           if ($value == 'motion') {
-            $xiaomihome->checkAndUpdateCmd('no_motion', 0);
+            $xiaomihome2->checkAndUpdateCmd('no_motion', 0);
             $value = 1;
           } else {
             $value = 0;
@@ -553,7 +553,7 @@ class xiaomihome extends eqLogic {
             $value = 1;
           } else {
             $value = 0;
-            $xiaomihome->checkAndUpdateCmd('no_close', 0);
+            $xiaomihome2->checkAndUpdateCmd('no_close', 0);
           }
         }
         else if ($model == 'sensor_wleak.aq1') {
@@ -563,12 +563,12 @@ class xiaomihome extends eqLogic {
           $value = ($value == 'on') ? 1 : 0;
         }
       }
-      $xiaomihome->checkAndUpdateCmd($key, $value);
-      /*$xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),$key);
-      if (is_object($xiaomihomeCmd)) {
-      $xiaomihomeCmd->setConfiguration('value',$value);
-      $xiaomihomeCmd->save();
-      $xiaomihomeCmd->event($value);
+      $xiaomihome2->checkAndUpdateCmd($key, $value);
+      /*$xiaomihome2Cmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($xiaomihome2->getId(),$key);
+      if (is_object($xiaomihome2Cmd)) {
+      $xiaomihome2Cmd->setConfiguration('value',$value);
+      $xiaomihome2Cmd->save();
+      $xiaomihome2Cmd->event($value);
     }*/
   }
 }
@@ -586,26 +586,26 @@ public function pingHost($host, $timeout = 1) {
 }
 
 public static function sendDaemon($value) {
-  log::add('xiaomihome', 'debug', 'Envoi : ' . $value);
+  log::add('xiaomihome2', 'debug', 'Envoi : ' . $value);
   $deamon_info = self::deamon_info();
   if ($deamon_info['state'] != 'ok') {
     return;
   }
   $socket = socket_create(AF_INET, SOCK_STREAM, 0);
-  socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome'));
+  socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'xiaomihome2'));
   socket_write($socket, $value, strlen($value));
   socket_close($socket);
 }
 
 }
 
-class xiaomihomeCmd extends cmd {
+class xiaomihome2Cmd extends cmd {
   public function execute($_options = null) {
     if ($this->getType() == 'info') {
       return $this->getConfiguration('value');
     } else {
       $eqLogic = $this->getEqLogic();
-      log::add('xiaomihome', 'debug', 'execute : ' . $this->getType() . ' ' . $eqLogic->getConfiguration('type') . ' ' . $this->getLogicalId());
+      log::add('xiaomihome2', 'debug', 'execute : ' . $this->getType() . ' ' . $eqLogic->getConfiguration('type') . ' ' . $this->getLogicalId());
       switch ($eqLogic->getConfiguration('type')) {
         case 'yeelight':
         $this->executeYeelight($_options);
@@ -626,21 +626,21 @@ class xiaomihomeCmd extends cmd {
   public function executeYeelight($_options = null) {
     $eqLogic = $this->getEqLogic();
     if ($eqLogic->pingHost($eqLogic->getConfiguration('gateway')) == false) {
-      log::add('xiaomihome', 'debug', 'Equipement Yeelight déconnecté : ' . $eqLogic->getName());
+      log::add('xiaomihome2', 'debug', 'Equipement Yeelight déconnecté : ' . $eqLogic->getName());
       return;
     }
     switch ($this->getSubType()) {
       case 'slider':
       $option = $_options['slider'];
       if ($this->getLogicalId() == 'hsvAct') {
-        $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'saturation');
+        $cplmtcmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'saturation');
         $option = $option . ' ' . $cplmtcmd->execCmd();
       }
       if ($this->getLogicalId() == 'saturationAct') {
-        $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'hsv');
+        $cplmtcmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'hsv');
         $option = $cplmtcmd->execCmd() . ' ' . $option;
       }
-      log::add('xiaomihome', 'debug', 'Slider : ' . $option);
+      log::add('xiaomihome2', 'debug', 'Slider : ' . $option);
       break;
       case 'color':
       $option = str_replace('#','',$_options['color']);
@@ -657,7 +657,7 @@ class xiaomihomeCmd extends cmd {
     }
     $sup = '';
     if ($eqLogic->getConfiguration('model','') == 'desklamp'){
-      $brightCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'brightness');
+      $brightCmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'brightness');
       $sup = $brightCmd->execCmd();
     }
     if ($this->getLogicalId() != 'refresh') {
@@ -666,11 +666,11 @@ class xiaomihomeCmd extends cmd {
       } else {
         $request =$this->getConfiguration('request');
       }
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'yeelight','cmd' => 'send', 'dest' => $eqLogic->getConfiguration('gateway') , 'model' => $eqLogic->getConfiguration('model'), 'sid' => $eqLogic->getConfiguration('sid'), 'short_id' => $eqLogic->getConfiguration('short_id'),'command' => $request, 'option' => $option, 'id' => $eqLogic->getLogicalId(), 'sup' => $sup));
-      xiaomihome::sendDaemon($value);
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'yeelight','cmd' => 'send', 'dest' => $eqLogic->getConfiguration('gateway') , 'model' => $eqLogic->getConfiguration('model'), 'sid' => $eqLogic->getConfiguration('sid'), 'short_id' => $eqLogic->getConfiguration('short_id'),'command' => $request, 'option' => $option, 'id' => $eqLogic->getLogicalId(), 'sup' => $sup));
+      xiaomihome2::sendDaemon($value);
     } else {
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'yeelight','cmd' => 'refresh', 'model' => $eqLogic->getConfiguration('model'), 'dest' => $eqLogic->getConfiguration('gateway') , 'token' => $eqLogic->getConfiguration('password') , 'devtype' => $eqLogic->getConfiguration('short_id'), 'serial' => $eqLogic->getConfiguration('sid'), 'id' => $eqLogic->getLogicalId()));
-      xiaomihome::sendDaemon($value);
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'yeelight','cmd' => 'refresh', 'model' => $eqLogic->getConfiguration('model'), 'dest' => $eqLogic->getConfiguration('gateway') , 'token' => $eqLogic->getConfiguration('password') , 'devtype' => $eqLogic->getConfiguration('short_id'), 'serial' => $eqLogic->getConfiguration('sid'), 'id' => $eqLogic->getLogicalId()));
+      xiaomihome2::sendDaemon($value);
       return;
     }
   }
@@ -679,22 +679,22 @@ class xiaomihomeCmd extends cmd {
     $eqLogic = $this->getEqLogic();
     if ($this->getLogicalId() == 'refresh') {
       $gateway = $eqLogic->getConfiguration('gateway');
-      $xiaomihome = $eqLogic->byLogicalId($gateway, 'xiaomihome');
-      if ($xiaomihome->pingHost($gateway) == false) {
-        log::add('xiaomihome', 'debug', 'Offline Aqara : ' . $xiaomihome->getName());
+      $xiaomihome2 = $eqLogic->byLogicalId($gateway, 'xiaomihome2');
+      if ($xiaomihome2->pingHost($gateway) == false) {
+        log::add('xiaomihome2', 'debug', 'Offline Aqara : ' . $xiaomihome2->getName());
         return;
       }
-      $password = $xiaomihome->getConfiguration('password','');
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'aquara','model' => 'read','cmd' => 'refresh', 'dest' => $gateway , 'password' => $password,'sidG' => $xiaomihome->getConfiguration('sid'), 'sid' => $eqLogic->getConfiguration('sid')));
-      xiaomihome::sendDaemon($value);
+      $password = $xiaomihome2->getConfiguration('password','');
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'aquara','model' => 'read','cmd' => 'refresh', 'dest' => $gateway , 'password' => $password,'sidG' => $xiaomihome2->getConfiguration('sid'), 'sid' => $eqLogic->getConfiguration('sid')));
+      xiaomihome2::sendDaemon($value);
       return;
     }
     switch ($this->getSubType()) {
       case 'color':
       $option = $_options['color'];
       if ($this->getConfiguration('switch') == 'rgb') {
-        $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'brightness');
-        $bright = str_pad(dechex($xiaomihomeCmd->execCmd()), 2, "0", STR_PAD_LEFT);
+        $xiaomihome2Cmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'brightness');
+        $bright = str_pad(dechex($xiaomihome2Cmd->execCmd()), 2, "0", STR_PAD_LEFT);
         $couleur = str_replace('#','',$option);
         if ($couleur == '000000') {
           $bright = '00';
@@ -712,8 +712,8 @@ class xiaomihomeCmd extends cmd {
       $option = $_options['slider'];
       //$option = dechex($_options['slider']);
       if ($this->getConfiguration('switch') == 'rgb') {
-        $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'rgb');
-        $couleur = str_replace('#','',$xiaomihomeCmd->execCmd());
+        $xiaomihome2Cmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'rgb');
+        $couleur = str_replace('#','',$xiaomihome2Cmd->execCmd());
         $bright = str_pad($option, 2, "0", STR_PAD_LEFT);
         $eqLogic->checkAndUpdateCmd('brightness', $_options['slider']);
         $rgbcomplet = dechex($bright) . $couleur;
@@ -732,14 +732,14 @@ class xiaomihomeCmd extends cmd {
       default :
       if ($this->getConfiguration('switch') == 'rgb') {
         if ($this->getLogicalId() == 'on') {
-          $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'rgb');
-          $couleur = str_replace('#','',$xiaomihomeCmd->execCmd());
+          $xiaomihome2Cmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'rgb');
+          $couleur = str_replace('#','',$xiaomihome2Cmd->execCmd());
           $rgbcomplet = dechex(50) . $couleur;
           $option = hexdec($rgbcomplet);
           $eqLogic->checkAndUpdateCmd('brightness', '50');
         } else {
-          $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'rgb');
-          $couleur = str_replace('#','',$xiaomihomeCmd->execCmd());
+          $xiaomihome2Cmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'rgb');
+          $couleur = str_replace('#','',$xiaomihome2Cmd->execCmd());
           $rgbcomplet = dechex(00) . $couleur;
           $option = hexdec($rgbcomplet);
           $eqLogic->checkAndUpdateCmd('brightness', '00');
@@ -751,7 +751,7 @@ class xiaomihomeCmd extends cmd {
     }
 
     if (strpos($eqLogic->getConfiguration('model'),'curtain_level') !== false) {
-      $curtain_level = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'curtain_level');
+      $curtain_level = xiaomihome2Cmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'curtain_level');
       if ($curtain_level->getConfiguration('invert') == 1) {
         if ($option == 'open') {
           $option = 'close';
@@ -764,38 +764,38 @@ class xiaomihomeCmd extends cmd {
     }
 
     $gateway = $eqLogic->getConfiguration('gateway');
-    $xiaomihome = $eqLogic->byLogicalId($gateway, 'xiaomihome');
-    if ($xiaomihome->pingHost($gateway) == false) {
-      log::add('xiaomihome', 'debug', 'Offline Aqara : ' . $xiaomihome->getName());
+    $xiaomihome2 = $eqLogic->byLogicalId($gateway, 'xiaomihome2');
+    if ($xiaomihome2->pingHost($gateway) == false) {
+      log::add('xiaomihome2', 'debug', 'Offline Aqara : ' . $xiaomihome2->getName());
       return;
     }
-    $password = $xiaomihome->getConfiguration('password','');
+    $password = $xiaomihome2->getConfiguration('password','');
     if ($password == '') {
-      log::add('xiaomihome', 'debug', 'Mot de passe manquant sur la passerelle Aqara ' . $gateway);
+      log::add('xiaomihome2', 'debug', 'Mot de passe manquant sur la passerelle Aqara ' . $gateway);
       return;
     }
     if ($this->getLogicalId() == 'mid-scenar') {
       $volume = intval($_options['message']);
     } else {
-      $vol = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),'vol');
+      $vol = xiaomihome2Cmd::byEqLogicIdAndLogicalId($xiaomihome2->getId(),'vol');
       $volume = $vol->execCmd();
     }
     if (is_numeric($option)) {
       $option = intval($option);
     }
-    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'aquara','cmd' => 'send', 'dest' => $gateway , 'password' => $password , 'model' => $eqLogic->getConfiguration('model'),'sidG' => $xiaomihome->getConfiguration('sid'), 'sid' => $eqLogic->getConfiguration('sid'), 'short_id' => $eqLogic->getConfiguration('short_id'),'switch' => $this->getConfiguration('switch'), 'request' => $option, 'vol'=> $volume ));
-    xiaomihome::sendDaemon($value);
+    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'aquara','cmd' => 'send', 'dest' => $gateway , 'password' => $password , 'model' => $eqLogic->getConfiguration('model'),'sidG' => $xiaomihome2->getConfiguration('sid'), 'sid' => $eqLogic->getConfiguration('sid'), 'short_id' => $eqLogic->getConfiguration('short_id'),'switch' => $this->getConfiguration('switch'), 'request' => $option, 'vol'=> $volume ));
+    xiaomihome2::sendDaemon($value);
   }
 
   public function executeWifi($_options = null) {
     $eqLogic = $this->getEqLogic();
     if ($eqLogic->pingHost($eqLogic->getConfiguration('ipwifi')) == false) {
-      log::add('xiaomihome', 'debug', 'Offline Wifi : ' . $eqLogic->getName());
+      log::add('xiaomihome2', 'debug', 'Offline Wifi : ' . $eqLogic->getName());
       return;
     }
     if ($this->getLogicalId() == 'refresh') {
-      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'wifi','cmd' => 'refresh', 'model' => $eqLogic->getConfiguration('model'), 'dest' => $eqLogic->getConfiguration('gateway') , 'token' => $eqLogic->getConfiguration('password') , 'devtype' => $eqLogic->getConfiguration('short_id'), 'serial' => $eqLogic->getConfiguration('sid')));
-      xiaomihome::sendDaemon($value);
+      $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'wifi','cmd' => 'refresh', 'model' => $eqLogic->getConfiguration('model'), 'dest' => $eqLogic->getConfiguration('gateway') , 'token' => $eqLogic->getConfiguration('password') , 'devtype' => $eqLogic->getConfiguration('short_id'), 'serial' => $eqLogic->getConfiguration('sid')));
+      xiaomihome2::sendDaemon($value);
       return;
     }
     $params = $this->getConfiguration('params');
@@ -817,8 +817,8 @@ class xiaomihomeCmd extends cmd {
       default :
       $option = '';
     }
-    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome'), 'type' => 'wifi','cmd' => 'send', 'model' => $eqLogic->getConfiguration('model'), 'dest' => $eqLogic->getConfiguration('gateway') , 'token' => $eqLogic->getConfiguration('password') , 'devtype' => $eqLogic->getConfiguration('short_id'), 'serial' => $eqLogic->getConfiguration('sid'), 'method' => $this->getConfiguration('request'),'param' => $params));
-    xiaomihome::sendDaemon($value);
+    $value = json_encode(array('apikey' => jeedom::getApiKey('xiaomihome2'), 'type' => 'wifi','cmd' => 'send', 'model' => $eqLogic->getConfiguration('model'), 'dest' => $eqLogic->getConfiguration('gateway') , 'token' => $eqLogic->getConfiguration('password') , 'devtype' => $eqLogic->getConfiguration('short_id'), 'serial' => $eqLogic->getConfiguration('sid'), 'method' => $this->getConfiguration('request'),'param' => $params));
+    xiaomihome2::sendDaemon($value);
   }
 
   public function executeMiio($_options = null) {
