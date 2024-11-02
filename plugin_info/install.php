@@ -17,27 +17,27 @@
  */
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
-function xiaomihome_update() {
-	foreach (eqLogic::byType('xiaomihome') as $xiaomihome) {
-        if ($xiaomihome->getConfiguration('type') == 'aquara') {
-            $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),'refresh');
-            if (!is_object($xiaomihomeCmd)) {
-                log::add('xiaomihome', 'debug', 'Création de la commande Rafraichir Aqara');
-                $xiaomihomeCmd = new xiaomihomeCmd();
-                $xiaomihomeCmd->setName(__('Rafraichir', __FILE__));
-                $xiaomihomeCmd->setEqLogic_id($xiaomihome->getId());
-                $xiaomihomeCmd->setEqType('xiaomihome');
-                $xiaomihomeCmd->setLogicalId('refresh');
-                $xiaomihomeCmd->setType('action');
-                $xiaomihomeCmd->setSubType('other');
-                $xiaomihomeCmd->setConfiguration('switch', 'read');
-                $xiaomihomeCmd->setIsVisible('0');
-                $xiaomihomeCmd->setDisplay('generic_type', 'DONT');
-                $xiaomihomeCmd->save();
+function xiaomihome2_update() {
+	foreach (eqLogic::byType('xiaomihome2') as $xiaomihome2) {
+        if ($xiaomihome2->getConfiguration('type') == 'aquara') {
+            $xiaomihome2Cmd = xiaomihome2Cmd::byEqLogicIdAndLogicalId($xiaomihome2->getId(),'refresh');
+            if (!is_object($xiaomihome2Cmd)) {
+                log::add('xiaomihome2', 'debug', 'Création de la commande Rafraichir Aqara');
+                $xiaomihome2Cmd = new xiaomihome2Cmd();
+                $xiaomihome2Cmd->setName(__('Rafraichir', __FILE__));
+                $xiaomihome2Cmd->setEqLogic_id($xiaomihome2->getId());
+                $xiaomihome2Cmd->setEqType('xiaomihome2');
+                $xiaomihome2Cmd->setLogicalId('refresh');
+                $xiaomihome2Cmd->setType('action');
+                $xiaomihome2Cmd->setSubType('other');
+                $xiaomihome2Cmd->setConfiguration('switch', 'read');
+                $xiaomihome2Cmd->setIsVisible('0');
+                $xiaomihome2Cmd->setDisplay('generic_type', 'DONT');
+                $xiaomihome2Cmd->save();
             }
         }
-        $xiaomihome->setConfiguration('applyDevice',$xiaomihome->getConfiguration('model'));
-        $xiaomihome->save();
+        $xiaomihome2->setConfiguration('applyDevice',$xiaomihome2->getConfiguration('model'));
+        $xiaomihome2->save();
 	}
 }
 ?>
